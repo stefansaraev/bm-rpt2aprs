@@ -22,15 +22,26 @@
     $repeater_ids = dbus_get_repeater_ids_for_network($service);
 
     if ($repeater_ids) {
+      echo "getting repeater data for master $instance\n";
+      $ctx = stream_context_create(array(
+        'http' => array(
+          'timeout' => 10
+        )
+      ));
+      $rptdata = file_get_contents("http://api.brandmeister.network/v1.0/repeater/?action=LIST&master=$instance", 0, $ctx);
+      $rptdata = json_decode($rptdata);
+    }
+
+    if ($repeater_ids && $rptdata) {
       foreach ($repeater_ids as $repeater_id) {
         echo "getting info for repeater id $repeater_id...\n";
-        $ctx = stream_context_create(array(
-          'http' => array(
-            'timeout' => 5
-          )
-        ));
-        $result = file_get_contents("https://api.brandmeister.network/v1.0/repeater/?action=GET&q=$repeater_id", 0, $ctx);
-        $result = json_decode($result);
+
+        foreach ($rptdata as $repeater)
+        {
+          if ($repeater->repeaterid == $repeater_id)
+            $result = $repeater;
+        }
+
         if (!isset($result->callsign)) {
           echo "  no callsign, ignoring\n";
           continue;
