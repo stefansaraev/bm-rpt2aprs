@@ -55,7 +55,7 @@
     // [SK0NN Stockholm] ==> [SK0NN]
     // [SM6TKT/R] ==> [SM6TKT]
     // [AX1DCX-12223323123] ==> [AX1DCX]
-    $keywords = preg_split("/[\s-\\/]+/", $string);
+    $keywords = preg_split("/[\s\-\\/]+/", $string);
     $keywords[0] = preg_replace('/[^A-Z0-9]+/', '', $keywords[0]);
     if (!empty($keywords[1])) {
       if (strlen($keywords[0]) >= 7) {
