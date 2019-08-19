@@ -10,12 +10,7 @@ API, and uploads them to the APRS-IS as objects.
 
 - You'll need PHP CLI (ex. php5-cli).
 - Rename (and edit) *config-example.inc.php* to *config.inc.php*.
-
-You can periodically run this script from crontab. Crontab entry example:
-
-```
-0,30 *  *   *   *     /home/nonoo/bm-rpt2aprs/bm-rpt2aprs.php &>/dev/null
-```
+- Use the provided systemd unit file.
 
 ## Skipping APRS reporting
 
