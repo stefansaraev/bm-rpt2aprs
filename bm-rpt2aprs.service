@@ -1,0 +1,15 @@
+[Unit]
+Description=bm-rpt2aprs
+After=multi-user.target
+
+[Service]
+WorkingDirectory=/opt/bm-rpt2aprs
+ExecStart=/opt/bm-rpt2aprs/bm-rpt2aprs.sh
+TimeoutStopSec=1
+Restart=always
+RestartSec=2
+StartLimitInterval=0
+Nice=19
+
+[Install]
+WantedBy=multi-user.target
