@@ -75,6 +75,8 @@
         } else
           $callsign = $result->callsign;
 
+        usleep(random_int(100000, 500000));
+
         // Skip APRS reporting if NOGATE or NOAPRS tag is set
         if (strpos(strtoupper($description), 'NOGATE') === false &&
             strpos(strtoupper($description), 'NOAPRS') === false)
