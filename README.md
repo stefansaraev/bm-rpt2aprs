@@ -8,7 +8,7 @@ API, and uploads them to the APRS-IS as objects.
 
 ## Usage
 
-- You'll need PHP CLI (ex. php5-cli).
+- You'll need php-cli >= 7.0
 - Rename (and edit) *config-example.inc.php* to *config.inc.php*.
 - Use the provided systemd unit file.
 
