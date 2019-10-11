@@ -7,7 +7,7 @@
   chdir(dirname(__FILE__));
 
   include('config.inc.php');
-  include('common.php');
+  include('/var/www/html/status/common.php');
   include('dbus.inc.php');
   include('aprs.inc.php');
 
