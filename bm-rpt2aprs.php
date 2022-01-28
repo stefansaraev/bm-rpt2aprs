@@ -67,6 +67,14 @@
             $description = APRS_DEFAULT_TEXT;
         }
 
+        // Skip APRS reporting if NOGATE or NOAPRS tag is set
+        if (!(strpos(strtoupper($description), 'NOGATE') === false &&
+            strpos(strtoupper($description), 'NOAPRS') === false))
+        {
+          echo "  NOGATE or NOAPRS tag found, skip reporting to APRS-IS\n";
+          continue;
+        }
+
         // Parse SSID of an APRS object from the repeater id
         if (strlen($repeater_id) == 9) {
           echo "  parse ssid from repeater id\n";
@@ -77,15 +85,9 @@
 
         usleep(random_int(100000, 500000));
 
-        // Skip APRS reporting if NOGATE or NOAPRS tag is set
-        if (strpos(strtoupper($description), 'NOGATE') === false &&
-            strpos(strtoupper($description), 'NOAPRS') === false)
-        {
-          aprs_send_location($callsign, ($result->tx == $result->rx), $result->lat,
-            $result->lng, $result->pep, $result->agl, $result->gain, $description . ' ' .
-            $result->tx . '/' . $result->rx . ' CC' . $result->colorcode);
-        } else
-          echo "  NOGATE or NOAPRS tag found, skip reporting to APRS-IS\n";
+        aprs_send_location($callsign, ($result->tx == $result->rx), $result->lat,
+          $result->lng, $result->pep, $result->agl, $result->gain, $description . ' ' .
+          $result->tx . '/' . $result->rx . ' CC' . $result->colorcode);
       }
     }
   }
