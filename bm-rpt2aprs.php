@@ -28,7 +28,7 @@
           'timeout' => 10
         )
       ));
-      $rptdata = file_get_contents("http://api.brandmeister.network/v1.0/repeater/?action=LIST&master=$instance", 0, $ctx);
+      $rptdata = file_get_contents("http://api.brandmeister.network/v2/device/byMaster/$instance", 0, $ctx);
       $rptdata = json_decode($rptdata);
     }
 
@@ -38,7 +38,7 @@
 
         foreach ($rptdata as $repeater)
         {
-          if ($repeater->repeaterid == $repeater_id)
+          if ($repeater->id == $repeater_id)
             $result = $repeater;
         }
 
@@ -50,7 +50,7 @@
           echo "  invalid coordinates, ignoring\n";
           continue;
         }
-        if (time()-strtotime($result->last_updated) > 600) {
+        if (time()-strtotime($result->last_seen) > 600) {
           echo "  last update was too long ago, ignoring\n";
           continue;
         }
@@ -86,7 +86,7 @@
         usleep(random_int(100000, 500000));
 
         aprs_send_location($callsign, ($result->tx == $result->rx), $result->lat,
-          $result->lng, $result->pep, $result->agl, $result->gain, $description . ' ' .
+          $result->lng, $result->pep, $result->agl, 0, $description . ' ' .
           $result->tx . '/' . $result->rx . ' CC' . $result->colorcode);
       }
     }
