@@ -42,6 +42,11 @@
             $result = $repeater;
         }
 
+        if ($result->id < 200000 || $result->id > 799999) {
+          echo "  not a repeater. ignoring\n";
+          continue;
+        }
+
         if (!isset($result->callsign)) {
           echo "  no callsign, ignoring\n";
           continue;
