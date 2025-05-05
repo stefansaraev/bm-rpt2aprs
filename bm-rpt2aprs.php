@@ -34,17 +34,15 @@
 
     if ($repeater_ids && $rptdata) {
       foreach ($repeater_ids as $repeater_id) {
+        if ($repeater_id < 200000 || $repeater_id > 799999) {
+          continue;
+        }
         echo "getting info for repeater id $repeater_id...\n";
 
         foreach ($rptdata as $repeater)
         {
           if ($repeater->id == $repeater_id)
             $result = $repeater;
-        }
-
-        if ($result->id < 200000 || $result->id > 799999) {
-          echo "  not a repeater. ignoring\n";
-          continue;
         }
 
         if (!isset($result->callsign)) {
