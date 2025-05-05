@@ -107,60 +107,25 @@
       str_pad($hundredths, 2, '0', STR_PAD_LEFT) .
       ($longitude > 0 ? 'E' : 'W');
 
-    $phg = 'PHG';
+/*
+    if ($pep > 81)
+      $pep = 81;
 
-    if ($pep >= 81)
-      $phg .= '9';
-    else if ($pep >= 64)
-      $phg .= '8';
-    else if ($pep >= 49)
-      $phg .= '7';
-    else if ($pep >= 36)
-      $phg .= '6';
-    else if ($pep >= 25)
-      $phg .= '5';
-    else if ($pep >= 16)
-      $phg .= '4';
-    else if ($pep >= 9)
-      $phg .= '3';
-    else if ($pep >= 4)
-      $phg .= '2';
-    else if ($pep >= 1)
-      $phg .= '1';
-    else
-      $phg .= '0';
+    // power
+    $phg .= round(sqrt($pep));
 
-    $alt_feet = round($agl*3.28084);
-    if ($alt_feet >= 5120)
-      $phg .= '9';
-    else if ($alt_feet >= 2560)
-      $phg .= '8';
-    else if ($alt_feet >= 1280)
-      $phg .= '7';
-    else if ($alt_feet >= 640)
-      $phg .= '6';
-    else if ($alt_feet >= 320)
-      $phg .= '5';
-    else if ($alt_feet >= 160)
-      $phg .= '4';
-    else if ($alt_feet >= 80)
-      $phg .= '3';
-    else if ($alt_feet >= 40)
-      $phg .= '2';
-    else if ($alt_feet >= 20)
-      $phg .= '1';
-    else
-      $phg .= '0';
+    // height
+    $phg .= round(log(3.28084 * $agl / 10));
 
-    $gain = round($gain);
-    if ($gain > 9)
-      $gain = 9;
-    if ($gain < 0)
-      $gain = 0;
-    $phg .= $gain . '0'; // Directivity fixed to omni.
+    // gain
+    $phg .= $gain;
 
-    if ($phg == 'PHG0000')
-      $phg = '';
+    // direction
+    $phg .= '0';
+*/
+
+    // clear. it's useless anyways
+    $phg = 'PHG0000';
 
     if ($simplex_station) {
       $aprs_symbol1 = APRS_SYMBOL_SIMPLEX_STATION[0];
